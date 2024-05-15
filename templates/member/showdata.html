@@ -1,0 +1,52 @@
+{% extends "member/base.html" %}
+{% load static %}
+{% block title %} 圖書館空間預約系統 {% endblock %}
+{% block content %}
+    <script> 
+        $(".list").removeClass("active");
+        $("#_2").addClass("active");
+        function Delete (id) {
+            var url = "/main/pg2/delete/" + id;
+            alert(url);
+            window.location = url;
+        }
+    </script>
+    {% if message and is_delR %}
+        <h3 id="Success"> {{ message }}</h3>
+    {% endif %}
+    <div class="content show" id="pg2">
+        <h1>已預約資訊</h1>
+        <p>Hi, {{ username }}, 以下是您的預約資訊！</p>
+        <form method="get" class="Query">
+            <h3>查詢預約資訊</h3>
+            <label for="reservation_date" id="res_date">輸入日期：</label>
+            <input type="text" id="reservation_date" name="reservation_date" placeholder="依照日期來搜尋" onkeyup="Search()">
+            <!-- <button type="submit" class="qry">查詢</button> -->
+            <!-- <button type="submit" name="showall" class="qry">顯示全部</button> -->
+        </form>
+        <table>
+            <tr>
+                <th>預約日期</th>
+                <th>預約時間</th>
+                <th>預約人數</th>
+                <th>預約空間</th>
+                <th>預約編號</th>
+                <th>刪除</th>
+            </tr>
+            {% for data in reservations %}
+                <tr>
+                    <td>{{ data.Date }}</td>
+                    <td>{{ data.Time }}</td>
+                    <td>{{ data.people }}</td>
+                    <td>{{ data.space }}</td>
+                    <td>{{ data.id }}</td>
+                    <td class='DelR'><span onclick="Delete('{{data.id}}');">x</span></td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">目前沒有任何預約資訊！</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

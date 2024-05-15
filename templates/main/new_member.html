@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    {% if message and is_register %}
+        <h3 id="Alert"> {{ message }}</h3>
+    {% endif %}
+    <form action="." method="GET" id="Register">
+        {% csrf_token %}
+        <h3>Register Here</h3>
+        <!-- <input id="username" type="text" class="validate"> -->
+        <!-- <label for="">Name</label>
+        <input type="text" name="name" class="validate" id="name"> -->
+        <label for="">Username*</label>
+        <input type="text" name="username" class="validate" id="username" requires>
+        <label for="">Password*</label>
+        <input id="password" type="password" class="validate" name="password" require>
+        <label for="">Password Again*</label>
+        <input id="password_again" type="password" class="validate" name="password_again" require>
+        <button type="submit">Register</button><br>
+        <a href="/">Back to Login</a>
+    </form>
+{% endblock %}

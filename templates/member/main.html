@@ -1,0 +1,15 @@
+{% extends "member/base.html" %}
+{% load static %}
+{% block title %} 圖書館空間預約系統 {% endblock %}
+{% block content %} 
+    <script> 
+        $(".list").removeClass("active");
+        $("#_1").addClass("active");
+    </script>
+    <div class="content show" id="pg1">
+        <h1>圖書館空間預約系統</h1>
+        <h2>Hi, {{ username }} Welcome!</h2>
+        <p>這是一個圖書館空間預約系統，您可以在這裡預約圖書館的空間，並且查看您的預約資訊。</p>
+        <img src="{% static 'images/homepage.png' %}" width="667" height="500" id="img1">
+    </div>
+{% endblock %}

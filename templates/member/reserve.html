@@ -1,0 +1,40 @@
+{% extends "member/base.html" %}
+{% load static %}
+{% block title %} 圖書館空間預約系統 {% endblock %}
+{% block content %}
+    <script> 
+        $(".list").removeClass("active");
+        $("#_3").addClass("active");
+    </script>
+    {% if message and is_reserve == False %}
+        <h3 id="Alert"> {{ message }}</h3>
+    {% elif message and is_reserve %}
+        <h3 id="Success"> {{ message }}</h3>
+    {% endif %}
+    <div class="content show" id="pg3">
+        <form action="." method="GET">
+            <h3>前往預約！</h3>
+            <label for="date">預約日期：</label>
+            <input type="date" id="date" name="date" required>
+            <label for="time">預約時間：</label>
+            <select id="time" name="time" required>
+                <option value="09:00-12:00">09:00-12:00</option>
+                <option value="13:00-16:00">13:00-16:00</option>
+                <option value="17:00-20:00">17:00-20:00</option>
+            </select>
+            <label for="people">預約人數：</label>
+            <input type="number" id="people" name="people" min="1" max="14" required>
+            <label for="space">預約空間：</label>
+            <select id="space" name="space" required>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+
+            </select>
+            <button type="submit" name="reserve">預約！</button>
+        </form>
+    </div>
+    {% comment %} <script src="{% static 'script/reserve-script.js' %}"></script> {% endcomment %}
+
+{% endblock %}

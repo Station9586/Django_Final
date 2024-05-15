@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'style/SideNavigationMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'style/content.css' %}">
+    <link rel="stylesheet" href="{% static 'style/member_style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/table.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    {% comment %} <link rel="stylesheet" href="{% static 'style/login_style.css' %}" media="screen"> {% endcomment %}
+    <title>{% block title %} {% endblock %}</title>
+</head>
+
+<body>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    {% include "member/menu.html" %}
+    {% block content %} {% endblock %}
+    <script src="{% static 'script/member-script.js' %}"></script>
+</body>
+
+</html> 

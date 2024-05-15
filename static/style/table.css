@@ -1,0 +1,67 @@
+table {
+    font-family: 'Poppins', sans-serif;
+    width: 600px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 1rem;
+    color: #212529;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    transform: translate(70%, 20%);
+}
+
+th, td {
+    padding: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+    /* vertical-align: top; */
+    color: #dee2e6;
+    border-top: 1px solid #dee2e6;
+}
+
+th {
+    background-color: #f8f9fa;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+.table-borderless th, .table-borderless td {
+    border: 0;
+}
+
+#pg2 p {
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 40px;
+}
+
+table .DelR {
+    font-family: 'Comic Sans MS', sans-serif;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #ff0000;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+table .DelR a {
+    /* text-decoration: none; */
+    color: #fff;
+    position: absolute;
+
+}
