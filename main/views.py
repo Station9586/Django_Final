@@ -20,6 +20,8 @@ def login(request):
         account = Account.objects.get(username=username)
         # print(account.password)
         if account.password == password:
+            if (account.nickname == "Admin"):
+                return redirect('/admin')
             is_login = 1
         else:
             message = "Invalid account or password"
