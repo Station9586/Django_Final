@@ -11,7 +11,7 @@
     {% elif message and is_reserve %}
         <h3 id="Success"> {{ message }}</h3>
     {% endif %}
-    <div class="content show" id="pg3">
+    {% comment %} <div class="content show" id="pg3">
         <form action="." method="GET">
             <h3>前往預約！</h3>
             <label for="date">預約日期：</label>
@@ -33,6 +33,14 @@
 
             </select>
             <button type="submit" name="reserve">預約！</button>
+        </form>
+    </div> {% endcomment %}
+    <div class="content show" id="pg3">
+        <form name="go_reservation" action="." method="POST">
+            <h3>前往預約！</h3>
+            {% csrf_token %}
+            {{ post_form.as_p }}
+            <input type="submit" value="預約！">
         </form>
     </div>
     {% comment %} <script src="{% static 'script/reserve-script.js' %}"></script> {% endcomment %}

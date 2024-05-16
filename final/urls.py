@@ -27,7 +27,7 @@ urlpatterns = [
     path('main/pg1/', member.main), 
     path('main/pg2/', member.showdata),
     path('main/pg2/delete/<str:id>', member.detete_r),
-    path('main/pg3/', member.go_reserve),
+    path('main/pg3/', member.go_reserve2),
     path('main/pg4/', member.modify),
     path('main/pg5/', member.settings),
     path('main/pg5/delete/<str:old_psw>/', member.delete),

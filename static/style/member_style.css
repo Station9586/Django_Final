@@ -228,3 +228,26 @@ span#acc {
     border-radius: 5px;
     cursor: pointer;
 }
+
+#id_Date {
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.content form p input#id_Date {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 18px;
+    font-weight: 300;
+    visibility: hidden;
+}

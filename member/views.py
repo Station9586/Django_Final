@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Reservations
+from .models import Reservations, ReservationForm
 from main.models import Account
 import random
 
@@ -209,3 +209,40 @@ def delete (request, old_psw):
     except:
         request.session['msg'] = "Please Fill in the Old Password"
     return redirect('/main/pg5');
+
+def go_reserve2 (request):
+    if (request.session.get('is_login') != True):
+        return redirect('/')
+    username = request.session.get('username')
+    is_reserve = request.session.get('is_reserve')
+    # print(f"is_reserve: {is_reserve}")
+    request.session['is_reserve'] = False
+    message = request.session.get('message')
+    # print(f"message: {message}")
+    if (request.method == 'POST'): 
+        post_form = ReservationForm(request.POST)
+        if (post_form.is_valid()):
+            # check whether the space is already reserved
+            date = post_form.cleaned_data['Date']
+            time = post_form.cleaned_data['Time']
+            space = post_form.cleaned_data['space']
+            people = post_form.cleaned_data['people']
+            if (Reservations.objects.filter(Date=date, Time=time, space=space).count() >= 1):
+                request.session['message'] = "The space is already reserved"
+                return redirect('/main/pg3')
+            request.session['is_reserve'] = True
+            request.session['message'] = "Reservation successful"
+            post_form.save()
+            return redirect('/main/pg3')
+            # return render(request, 'member/reserve.html', locals())
+
+        else:
+            request.session['message'] = "Reservation failed"
+            return redirect('/main/pg3')
+
+    else:
+        initial_data = {'Name': username, 'id': random_id()}
+        post_form = ReservationForm(initial=initial_data)
+        request.session['message'] = "Please fill in all the information"
+        # return redirect('/main/pg3')
+    return render(request, 'member/reserve.html', locals())
