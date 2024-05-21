@@ -31,5 +31,5 @@ urlpatterns = [
     path('main/pg4/', member.modify),
     path('main/pg5/', member.settings),
     path('main/pg5/delete/<str:old_psw>/', member.delete),
-
+    path('main/logout/', member.logout),
 ]

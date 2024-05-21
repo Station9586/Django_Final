@@ -246,3 +246,7 @@ def go_reserve2 (request):
         request.session['message'] = "Please fill in all the information"
         # return redirect('/main/pg3')
     return render(request, 'member/reserve.html', locals())
+
+def logout (request): 
+    request.session.flush()
+    return redirect('/')
