@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
 from main import views
 import member.views as member
 
@@ -32,4 +32,6 @@ urlpatterns = [
     path('main/pg5/', member.settings),
     path('main/pg5/delete/<str:old_psw>/', member.delete),
     path('main/logout/', member.logout),
+    re_path(r"^captcha/", include("captcha.urls")), 
+    path("accounts/", include("registration.backends.default.urls")), 
 ]
