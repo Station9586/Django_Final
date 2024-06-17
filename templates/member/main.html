@@ -10,6 +10,10 @@
         <h1>圖書館空間預約系統</h1>
         <h2>Hi, {{ username }} Welcome!</h2>
         <p>這是一個圖書館空間預約系統，您可以在這裡預約圖書館的空間，並且查看您的預約資訊。</p>
-        <img src="{% static 'images/homepage.png' %}" width="667" height="500" id="img1">
+        <div class="box" style="display: flex; justify-content: center; align-items: center;">
+            <img src="{% static 'images/homepage.png' %}" width="560" height="365" style="margin: 0 10px;">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/wjZofJX0v4M?si=KDX6wmknBNuuJhKs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        
     </div>
 {% endblock %}
