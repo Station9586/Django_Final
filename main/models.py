@@ -1,4 +1,6 @@
 from django.db import models
+from django import forms
+
 
 # Create your models here.
 class Account(models.Model): 
@@ -8,4 +10,8 @@ class Account(models.Model):
     
     def __str__(self):
         return self.username
+
+class LoginForm (forms.Form):
+    username = forms.CharField(label='Username', max_length=100)
+    password = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput)
 
