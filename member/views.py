@@ -261,7 +261,7 @@ def go_reserve2 (request):
             request.session['message'] = "Reservation successful"
             messages.add_message(request, messages.SUCCESS, "Reservation successful")
             post_form.save()
-            return redirect('/main/pg3')
+            return redirect('/main/pg2')
             # return render(request, 'member/reserve.html', locals())
 
         else:
@@ -273,7 +273,7 @@ def go_reserve2 (request):
         initial_data = {'Name': username, 'id': random_id()}
         post_form = ReservationForm(initial=initial_data)
         request.session['message'] = "Please fill in all the information"
-        messages.add_message(request, messages.WARNING, "Please fill in all the information")
+        # messages.add_message(request, messages.WARNING, "Please fill in all the information")
         # return redirect('/main/pg3')
     return render(request, 'member/reserve.html', locals())
 
