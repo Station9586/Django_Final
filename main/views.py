@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Account, LoginForm
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 
@@ -54,20 +54,27 @@ def login (request):
                 if (user.is_active): 
                     auth.login(request, user)
                     message = "Login successfully"
+                    messages.add_message(request, messages.SUCCESS, message)
                     request.session['is_login'] = True
                     request.session['username'] = login_name
                     return redirect('/admin')
-                else: message = "帳號尚未啟用"
+                else: messages.add_message(request, messages.WARNING, "帳號尚未啟用")
             else: 
-                account = Account.objects.get(username=login_name)
+                try: 
+                    account = Account.objects.get(username=login_name)
+                except:
+                    messages.add_message(request, messages.WARNING, "Invalid account or password")
+                    return render(request, 'main/index.html', locals())
                 if account.password == login_password:
                     is_login = 1
                     request.session['is_login'] = True
                     request.session['username'] = login_name
                     message = "Login successfully"
+                    messages.add_message(request, messages.SUCCESS, message)
                     return redirect('/main/pg1')
-                else: message = 'Invalid account or password'
-        else: message = 'Please Check the information'
+                else: 
+                    messages.add_message(request, messages.WARNING, "Invalid account or password")
+        else: messages.add_message(request, messages.WARNING, "Please check the information")
     else: login_form = LoginForm()
 
 
@@ -82,6 +89,7 @@ def register (request):
         confirm = request.GET['password_again']
         if password != confirm:
             message = "Password does not match"
+            messages.add_message(request, messages.WARNING, message)
             print("Not match")
             return render(request, 'main/new_member.html', locals())
         else:
@@ -89,6 +97,7 @@ def register (request):
                 find = Account.objects.get(username=username)
                 if (find):
                     message = "Username already exists"
+                    messages.add_message(request, messages.WARNING, message)
                     print("Username already exists")
                     return render(request, 'main/new_member.html', locals())
             except:
@@ -100,8 +109,10 @@ def register (request):
     except:
         print("input are not complete")
         message = "input are not complete"
+        messages.add_message(request, messages.WARNING, message)
         return render(request, 'main/new_member.html', locals())
     if is_register == 1:
         message = "Register successfully"
+        messages.add_message(request, messages.SUCCESS, message)
         print("Register successfully")
     return render(request, 'main/index.html', locals())

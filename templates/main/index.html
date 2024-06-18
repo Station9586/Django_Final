@@ -6,11 +6,14 @@
     <div class="shape"></div>
     <div class="shape"></div>
 </div>
-    {% if message and is_login %}
+    {% comment %} {% if message and is_login %}
         <h3 id="Alert"> {{ message }}</h3>
     {% elif message and is_register %}
         <h3 id="Success"> {{ message }}</h3>
-    {% endif %}
+    {% endif %} {% endcomment %}
+    {% for message in messages %}
+        <h3 id="{{ message.tags }}"> {{ message }}</h3>
+    {% endfor %}
     <form action="/" method="POST" id="Login" name="Login">
         {% csrf_token %}
         <h3>Login Here</h3>

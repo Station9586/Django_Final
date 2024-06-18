@@ -6,11 +6,9 @@
         $(".list").removeClass("active");
         $("#_4").addClass("active");
     </script>
-    {% if message and is_modify == False %}
-        <h3 id="Alert"> {{ message }}</h3>
-    {% elif message and is_modify %}
-        <h3 id="Success"> {{ message }}</h3>
-    {% endif %}
+    {% for message in messages %}
+        <h3 id="{{ message.tags }}"> {{ message }}</h3>
+    {% endfor %}
     <div class="content show" id="pg4">
         <form action="." method="GET">
             <h3>修改預約！</h3>

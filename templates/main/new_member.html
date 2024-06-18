@@ -5,9 +5,9 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    {% if message and is_register %}
-        <h3 id="Alert"> {{ message }}</h3>
-    {% endif %}
+    {% for message in messages %}
+        <h3 id="{{ message.tags }}"> {{ message }}</h3>
+    {% endfor %}
     <form action="." method="GET" id="Register">
         {% csrf_token %}
         <h3>Register Here</h3>

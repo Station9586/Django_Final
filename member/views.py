@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Reservations, ReservationForm
 from main.models import Account
 import random
-
+from django.contrib import messages
 def random_id (): 
     ret = ""
     for i in range(0, 10):
@@ -27,6 +27,7 @@ def showdata (request):
     # get all the reservations for the user
     is_delR = request.session.get('is_delR')
     message = request.session.get('message')
+    # messages.add_message(request, messages.SUCCESS, message)
     request.session['is_delR'] = False
     request.session['message'] = None
     reservations = Reservations.objects.filter(Name__username=username)
@@ -42,6 +43,7 @@ def detete_r (request, id):
     Reservations.objects.get(id=id).delete()
     request.session['is_delR'] = True
     request.session['message'] = "Reservation deleted successfully"
+    messages.add_message(request, messages.SUCCESS, "Reservation deleted successfully")
     return redirect('/main/pg2')
 
 def go_reserve (request):
@@ -66,11 +68,13 @@ def go_reserve (request):
 
         elif (int(people) <= 0 or int(people) > 14):
             request.session['message'] = "Please enter a valid number of people"
+            messages.add_message(request, messages.WARNING, "Please enter a valid number of people")
             # return render(request, 'member/reserve.html', locals())
             return redirect('/main/pg3')
             # return render(request, 'member/reserve.html', locals())
         elif (Reservations.objects.filter(Date=date, Time=time, space=space).count() >= 1):
             request.session['message'] = "The space is already reserved"
+            messages.add_message(request, messages.WARNING, "The space is already reserved")
             # return render(request, 'member/reserve.html', locals())
             return redirect('/main/pg3')
             # return render(request, 'member/reserve.html', locals())
@@ -81,9 +85,11 @@ def go_reserve (request):
                 Reservations.objects.create(Name=acc, Date=date, Time=time, people=people, space=space, id = random_id())
                 request.session['is_reserve'] = True
                 request.session['message'] = "Reservation successful"
+                messages.add_message(request, messages.SUCCESS, "Reservation successful")
             except:
                 print(f"Error: username: {username}, date: {date}, time: {time}, people: {people}, space: {space}\n")
                 request.session['message'] = "Reservation failed"
+                messages.add_message(request, messages.WARNING, "Reservation failed")
             return redirect('/main/pg3')
 
     except: 
@@ -108,17 +114,21 @@ def modify (request):
         id = request.GET['old_id']
         if (date == "" or time == "" or people == "" or space == ""):
             request.session['message'] = "Please fill in all the information"
+            messages.add_message(request, messages.WARNING, "Please fill in all the information")
             return redirect('/main/pg4')
         elif (int(people) <= 0 or int(people) > 14):
             request.session['message'] = "Please enter a valid number of people"
+            messages.add_message(request, messages.WARNING, "Please enter a valid number of people")
             return redirect('/main/pg4')
         elif (Reservations.objects.filter(Date=date, Time=time, space=space).count() >= 1):
             request.session['message'] = "The space is already reserved"
+            messages.add_message(request, messages.WARNING, "The space is already reserved")
             return redirect('/main/pg4')
         else: 
             Reservations.objects.filter(id=id).update(Date=date, Time=time, people=people, space=space)
             request.session['is_modify'] = True
             request.session['message'] = "Reservation modified successfully"
+            messages.add_message(request, messages.SUCCESS, "Reservation modified successfully")
             return redirect('/main/pg4')
     except:
         request.session['message'] = "Please fill in all the information"
@@ -139,23 +149,29 @@ def settings (request):
         confirm = request.GET['cf_password']
         if (old_psw == "" or psw == "" or confirm == ""):
             message = "Please Fill in the form"
+            messages.add_message(request, messages.WARNING, "Please Fill in the form")
             return render(request, 'member/settings.html', locals())
         if (psw != confirm):
             message = "Password does not match"
+            messages.add_message(request, messages.WARNING, "Password does not match")
             return render(request, 'member/settings.html', locals())
         else:
             now_password = Account.objects.get(username=username).password
             if (now_password == psw):
                 message = "Password is the same as the current one"
+                messages.add_message(request, messages.WARNING, "Password is the same as the current one")
             elif (now_password != old_psw):
                 message = "Old password is incorrect"
+                messages.add_message(request, messages.WARNING, "Old password is incorrect")
             else:
                 is_modify = True
                 Account.objects.filter(username=username).update(password=psw)
                 message = "Password changed successfully"
+                messages.add_message(request, messages.SUCCESS, "Password changed successfully")
     except:
         if (message == None):
             message = "Please Fill in the form"
+            messages.add_message(request, messages.WARNING, "Please Fill in the form")
 
     return render(request, 'member/settings.html', locals())
 
@@ -170,22 +186,28 @@ def change (request):
         confirm = request.GET['cf_password']
         if (old_psw == "" or psw == "" or confirm == ""):
             request.session['message'] = "Please Fill in the form"
+            messages.add_message(request, messages.WARNING, "Please Fill in the form")
             return render(request, 'member/settings.html', locals())
         if (psw != confirm):
             request.session['message'] = "Password does not match"
+            messages.add_message(request, messages.WARNING, "Password does not match")
             return render(request, 'member/settings.html', locals())
         else:
             now_password = Account.objects.get(username=username).password
             if (now_password == psw):
                 request.session['message'] = "Password is the same as the current one"
+                messages.add_message(request, messages.WARNING, "Password is the same as the current one")
             elif (now_password != old_psw):
                 request.session['message'] = "Old password is incorrect"
+                messages.add_message(request, messages.WARNING, "Old password is incorrect")
             else:
                 request.session['is_modify'] = True
                 Account.objects.filter(username=username).update(password=psw)
                 request.session['message'] = "Password changed successfully"
+                messages.add_message(request, messages.SUCCESS, "Password changed successfully")
     except:
         request.session['message'] = "Please Fill in the form"
+        messages.add_message(request, messages.WARNING, "Please Fill in the form")
     return render(request, 'member/settings.html', locals())
 
 
@@ -196,18 +218,22 @@ def delete (request, old_psw):
     try: 
         if (old_psw == ""):
             request.session['msg'] = "Please Fill in the form"
+            messages.add_message(request, messages.WARNING, "Please Fill in the form")
             return redirect('/main/pg5');
         else:
             now_password = Account.objects.get(username=username).password
             if (now_password != old_psw):
                 request.session['msg'] = "Old password is incorrect"
+                messages.add_message(request, messages.WARNING, "Old password is incorrect")
             else:
                 acc = Account.objects.get(username=username)
                 acc.delete()
+                messages.add_message(request, messages.SUCCESS, "Account deleted successfully")
                 request.session.flush()
                 return redirect('/')
     except:
         request.session['msg'] = "Please Fill in the Old Password"
+        messages.add_message(request, messages.WARNING, "Please Fill in the Old Password")
     return redirect('/main/pg5');
 
 def go_reserve2 (request):
@@ -229,24 +255,29 @@ def go_reserve2 (request):
             people = post_form.cleaned_data['people']
             if (Reservations.objects.filter(Date=date, Time=time, space=space).count() >= 1):
                 request.session['message'] = "The space is already reserved"
+                messages.add_message(request, messages.WARNING, "The space is already reserved")
                 return redirect('/main/pg3')
             request.session['is_reserve'] = True
             request.session['message'] = "Reservation successful"
+            messages.add_message(request, messages.SUCCESS, "Reservation successful")
             post_form.save()
             return redirect('/main/pg3')
             # return render(request, 'member/reserve.html', locals())
 
         else:
             request.session['message'] = "Reservation failed"
+            messages.add_message(request, messages.WARNING, "Reservation failed")
             return redirect('/main/pg3')
 
     else:
         initial_data = {'Name': username, 'id': random_id()}
         post_form = ReservationForm(initial=initial_data)
         request.session['message'] = "Please fill in all the information"
+        messages.add_message(request, messages.WARNING, "Please fill in all the information")
         # return redirect('/main/pg3')
     return render(request, 'member/reserve.html', locals())
 
 def logout (request): 
     request.session.flush()
+    messages.add_message(request, messages.SUCCESS, "Logout successfully")
     return redirect('/')

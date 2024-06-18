@@ -14,11 +14,9 @@
             }
         }
     </script>
-    {% if message and is_modify == False %}
-        <h3 id="Alert"> {{ message }}</h3>
-    {% elif message and is_modify %}
-        <h3 id="Success"> {{ message }}</h3>
-    {% endif %}
+    {% for message in messages %}
+        <h3 id="{{ message.tags }}"> {{ message }}</h3>
+    {% endfor %}
     <div class="content show" id="pg5">
         <!-- <p>看要改密碼還是刪除帳號還是登出都可以！</p> -->
         <form action="." method="GET" id="del_form">

@@ -13,7 +13,7 @@ form {
     padding: 50px 35px;
 }
 
-#Alert {
+#warning {
     /* display: none; */
     font-family: "Poppins", sans-serif;
     width: 40%;
@@ -26,7 +26,7 @@ form {
     text-align: center;
 }
 
-#Success {
+#success {
     /* display: none; */
     font-family: "Poppins", sans-serif;
     width: 40%;
