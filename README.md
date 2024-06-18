@@ -19,13 +19,14 @@
 4. **messages**
     - 內建的messages套件，搭配CSS去做樣式變化
 
-##### Session存登入資訊才能瀏覽以下功能
+**Session存登入資訊才能瀏覽以下功能**
+
 5. **首頁**
     - static 載入image
     - iframe放youtube影片
 6. **所有預約資訊**
-    - 資料庫叫資料用for迴圈印出來
-    - 刪除按鈕用Javascript回傳 頁面 + id號碼 來刪除
+    - 資料庫叫資料用for迴圈印出來，empty印出沒有預約資料
+    - 刪除按鈕用URL反解傳到刪除頁面
     - 篩選功能用Javascript寫的
 7. **新增預約**
     - 預約表格用forms.ModelForm實作
