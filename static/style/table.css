@@ -60,8 +60,6 @@ table .DelR {
 }
 
 table .DelR a {
-    /* text-decoration: none; */
+    text-decoration: none; 
     color: #fff;
-    position: absolute;
-
 }

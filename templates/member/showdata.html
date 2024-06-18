@@ -40,7 +40,7 @@
                     <td>{{ data.people }}</td>
                     <td>{{ data.space }}</td>
                     <td>{{ data.id }}</td>
-                    <td class='DelR'><span onclick="Delete('{{data.id}}');">x</span></td>
+                    <td class='DelR'><a href="{% url 'del-url' data.id %}" style='text-decoration: none; justify-content: center; align-items: center; position: relative;'>x</a></td>
                 </tr>
             {% empty %}
                 <tr>

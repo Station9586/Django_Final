@@ -26,7 +26,7 @@ urlpatterns = [
     # path('main/<str:no>/', views.main, name='page'),
     path('main/pg1/', member.main), 
     path('main/pg2/', member.showdata),
-    path('main/pg2/delete/<str:id>', member.detete_r),
+    path('main/pg2/delete/<str:id>', member.detete_r, name='del-url'),
     path('main/pg3/', member.go_reserve2),
     path('main/pg4/', member.modify),
     path('main/pg5/', member.settings),
