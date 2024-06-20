@@ -1,6 +1,6 @@
 ### Django Final Project
 
-礙於沒時間寫，所以**跟 php 基本是同一個網站**，我只是翻譯把他過來而已
+[**PythonAnywhere連結**](http://station4178.pythonanywhere.com/)
 
 #### 系統架構
 ![image](https://github.com/Station9586/Django_Final/blob/main/System_structure.png)
